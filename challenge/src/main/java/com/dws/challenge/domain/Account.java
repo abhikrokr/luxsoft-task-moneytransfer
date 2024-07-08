@@ -1,6 +1,7 @@
 package com.dws.challenge.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import lombok.Data;
@@ -11,8 +12,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class Account {
-
+  
+  @JsonIgnore
   private final Object lock = new Object();
+  
   @NotNull
   @NotEmpty
   private final String accountId;
