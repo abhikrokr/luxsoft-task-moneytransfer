@@ -52,7 +52,7 @@ public class AccountsService {
     return this.accountsRepository.getAccount(accountId);
   }
 
-  private void transfer(MoneyTransfer moneyTransfer){
+  public void transferMoney(MoneyTransfer moneyTransfer){
     if(new BigDecimal("0.1").max(moneyTransfer.getAmount()).equals(new BigDecimal("0.1"))){
       throw new MinTransferAmountException();
     }
@@ -86,20 +86,5 @@ public class AccountsService {
 
   }
 
-  public void transferMoney(MoneyTransfer moneyTransfer) {
-    Map<String, String> currentMap = new ConcurrentHashMap<>();
-    String current = currentMap.putIfAbsent(moneyTransfer.getAccountFrom(),CONST);
-    if (null == current){
-      transfer(moneyTransfer);
-      currentMap.remove(moneyTransfer.getAccountFrom());
-    }else{
-      lock.lock();
-      try{
-        transfer(moneyTransfer);
-      }finally {
-        currentMap.remove(moneyTransfer.getAccountFrom());
-        lock.unlock();
-      }
-    }
-  }
+  
 }
