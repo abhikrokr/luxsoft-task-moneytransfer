@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 
 @Service
@@ -22,10 +20,6 @@ public class AccountsService {
     private final AccountsRepository accountsRepository;
 
     private final NotificationService notificationService;
-
-    private final String CONST = "A";
-
-    private Lock lock = new ReentrantLock();
 
     @Autowired
     public AccountsService(AccountsRepository accountsRepository, NotificationService notificationService) {
@@ -76,7 +70,7 @@ public class AccountsService {
                 updateAccount(fromAcc);
                 tooAcc.updateBalance(moneyTransfer.getAmount(), true);
                 updateAccount(tooAcc);
-                
+
                 this.notificationService.notifyAboutTransfer(fromAcc, PayerNotification
                         .replace("$$$", moneyTransfer.getAmount().toString())
                         .replace("###", tooAcc.getAccountId()));
@@ -88,6 +82,4 @@ public class AccountsService {
             }
         }
     }
-
-
 }

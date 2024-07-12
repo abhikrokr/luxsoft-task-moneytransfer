@@ -2,7 +2,6 @@ package com.dws.challenge.web;
 
 import com.dws.challenge.domain.Account;
 import com.dws.challenge.domain.MoneyTransfer;
-import com.dws.challenge.domain.MoneyTransferResponse;
 import com.dws.challenge.exception.AccountIdNotFoundException;
 import com.dws.challenge.exception.DuplicateAccountIdException;
 import com.dws.challenge.exception.MinTransferAmountException;
